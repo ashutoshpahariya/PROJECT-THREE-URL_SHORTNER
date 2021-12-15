@@ -1,0 +1,9 @@
+----FIRST API---- CREATE A DATA BY A LONG URL
+empty body  ,  empty long url , check base of long url , check endpoint of long url , give space between long urlnot valid ,
+first time data create save in db , second time hit the api get the data from db or redis but same short url ,
+ second time data pull by a cache with decrease time , error handling properly .
+
+ ----SECOND API---- PULL THE LONG URL FROM URL CODE
+ first time data pull from db valid urlcode ,  second time data pull from cache valid urlcode ,
+ check for trim it is valid or not , invalid urlcode ,
+ redirecting data with a proper status code , error handling properly . 
