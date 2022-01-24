@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const mongoose = require("mongoose");
 //----PROJECT THREE MONGO DB STRING NAMED ---group3DataBase
 mongoose
-    .connect("mongodb+srv://user-open-to-all:hiPassword123@cluster0.xgk0k.mongodb.net/group3DataBase?authSource=admin&replicaSet=atlas-e7145j-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true",
+    .connect("mongodb+srv://user-open-to-all:hiPassword123@cluster0.xgk0k.mongodb.net/ashutoshpahariya_db?authSource=admin&replicaSet=atlas-e7145j-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true",
         { useNewUrlParser: true }
     )
     .then(() => {

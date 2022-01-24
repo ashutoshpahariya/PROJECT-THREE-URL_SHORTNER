@@ -8,4 +8,4 @@ const UrlSchema = new mongoose.Schema({
     }, { timestamps:true })
     module.exports = mongoose.model('myUrl', UrlSchema)
 
-// urlCode: { mandatory, unique, lowercase, trim }, longUrl: {mandatory, valid url}, shortUrl: {mandatory, unique} }
+

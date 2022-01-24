@@ -6,23 +6,30 @@ const shortid = require('shortid')
 const redis = require("redis");
 const { promisify } = require("util");
 
+
+
 //---------------- REDIS PUBLIC ENDPOINT
 const redisClient = redis.createClient(
   18842, "redis-18842.c62.us-east-1-4.ec2.cloud.redislabs.com",
   { no_ready_check: true }
 );
+
 //---------------- REDIS PASSWORD
 redisClient.auth("GLhI3EzZ2sCFeKyyKRQzdHPGWOoqgoDg", function (err) {
   if (err) throw err;
 });
+
 //---------------- CONNECT TO REDIS 
 redisClient.on("connect", async function () {
   console.log("Connected to Redis..");
 })
 
+
 //----------------REDIS VARIABLE
 const SET_ASYNC = promisify(redisClient.SET).bind(redisClient);
 const GET_ASYNC = promisify(redisClient.GET).bind(redisClient);
+
+
 
 //-----------------ISVALID FUNCTION
 const isValid = function (value) {
@@ -36,6 +43,9 @@ const isValidRequestBody = function (college) {
 }
 //------------BASE URL
 const baseUrl = "http://localhost:3000";
+
+
+
 
 //-----------FIRST API GENERATE SHORT URL
 const createurl = async function (req, res) {
@@ -64,7 +74,6 @@ const createurl = async function (req, res) {
     //---FETCH THE DATA IN REDIS
     let checkforUrl = await GET_ASYNC(`${longUrl}`)
     if (checkforUrl) {
-      console.log("line no66")
       return res.status(200).send({ status: true, "data": JSON.parse(checkforUrl) })
     }
 
@@ -92,13 +101,14 @@ const createurl = async function (req, res) {
 
 
 
+
+
 //-----------SECOND API PULL LONG URL BY REDIRECTING
 const geturl = async function (req, res) {
   try {
     const urlCode = req.params.urlCode.trim().toLowerCase()
     if (!isValid(urlCode)) {
       res.status(400).send({ status: false, message: 'Please provide valid urlCode' })
-      console.log()
     }
 
     //---FETCH THE DATA BY URLCODE IN REDIS
@@ -113,10 +123,12 @@ const geturl = async function (req, res) {
       return res.status(404).send({ status: false, message: 'No URL Found' })
     }
 
+    
     //---SET GENERATE DATA IN CACHE
     await SET_ASYNC(`${urlCode}`, JSON.stringify(url.longUrl))
     return res.redirect(302, url.longUrl)
   } catch (err) {
+    console.log(err)
     res.status(500).send('Server Error')
   }
 }
